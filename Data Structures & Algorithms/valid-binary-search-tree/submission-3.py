@@ -7,23 +7,20 @@
 
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        
-        def dfs(node, leftBound, rightBound):
+
+        def search(node, minimum, maximum):
             if not node:
                 return True
 
-            
-            # i know i have to check every node against its parent and an 
-            # ancestor node above parent?
-            if leftBound >= node.val or node.val >= rightBound:
+            if node.val >= maximum or node.val <= minimum:
                 return False
-
-            return (dfs(node.left, leftBound, node.val) and 
-            dfs(node.right, node.val, rightBound))
-
-        # return (dfs(root.left, 0, root.val) and
-        # dfs(root.right, root.val, float("inf")))
-        return dfs(root, float("-inf"), float("inf"))
+            
+            return (search(node.left, minimum, node.val) and search(node.right, node.val, maximum))
 
 
         
+        
+        
+        return search(root, float("-inf"), float("inf"))
+
+
